@@ -9,7 +9,7 @@ type (
 	}
 
 	Brand struct {
-		ID   int
+		ID   int    `json:"id"`
 		Name string `json:"name"`
 	}
 
