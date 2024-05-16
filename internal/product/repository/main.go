@@ -5,7 +5,6 @@ import (
 	"cli-parser/database"
 	"cli-parser/internal/product/entity"
 	"context"
-	"fmt"
 
 	"github.com/jackc/pgx/v5"
 )
@@ -48,8 +47,6 @@ func (repository Repository) Save(entries []entity.Product) error {
 	)
 
 	for _, entry := range entries {
-
-		fmt.Println(entry.MarketplacesID)
 
 		batch.Queue("INSERT INTO products (id, brands_id, characteristics, depth, description, description_translated, height, href, marketplaces_id, markup, name, name_translated, price, quantity, weight, width) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) ON CONFLICT DO NOTHING", entry.ID, entry.BrandsID, entry.Characteristics, entry.Depth, entry.Description, entry.DescriptionTranslated, entry.Height, entry.Href, entry.MarketplacesID, entry.Markup, entry.Name, entry.NameTranslated, entry.Price, entry.Quantity, entry.Weight, entry.Width)
 	}

@@ -6,6 +6,7 @@ import (
 	"cli-parser/internal/characteristic"
 	"cli-parser/internal/characteristic_extended"
 	"cli-parser/internal/product"
+	"cli-parser/internal/product_image"
 	"context"
 	"os"
 
@@ -18,6 +19,7 @@ type (
 		Characteristic         characteristic.Manager
 		CharacteristicExtended characteristic_extended.Manager
 		Product                product.Manager
+		ProductImage           product_image.Manager
 	}
 )
 
@@ -36,5 +38,6 @@ func New(context context.Context, connection *database.Database) *Manager {
 		Characteristic:         *characteristic.New(context, connection, http),
 		CharacteristicExtended: *characteristic_extended.New(context, connection, http),
 		Product:                *product.New(context, connection, http),
+		ProductImage:           *product_image.New(context, connection, http),
 	}
 }

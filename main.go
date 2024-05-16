@@ -52,5 +52,10 @@ func run(context context.Context) error {
 		return err
 	}
 
+	// синхронизируем изображения товарных позиции
+	if err = manager.ProductImage.Sync(); err != nil {
+		return err
+	}
+
 	return nil
 }
