@@ -1,2 +1,2 @@
 CREATE TABLE
-    IF NOT EXISTS public.brands (id INT PRIMARY KEY, name TEXT UNIQUE NOT NULL);
+    IF NOT EXISTS public.brands (id INT PRIMARY KEY, name TEXT NOT NULL);

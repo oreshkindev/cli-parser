@@ -47,5 +47,10 @@ func run(context context.Context) error {
 		return err
 	}
 
+	// синхронизируем товарные позиции
+	if err = manager.Product.Sync(); err != nil {
+		return err
+	}
+
 	return nil
 }

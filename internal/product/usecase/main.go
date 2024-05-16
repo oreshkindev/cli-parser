@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"cli-parser/internal/characteristic/entity"
+	"cli-parser/internal/product/entity"
 	"context"
 	"encoding/json"
 	"strconv"
@@ -36,7 +36,7 @@ func (usecase *Usecase) Sync() error {
 		l = 250
 		o = 0
 
-		entries []entity.Characteristic
+		entries []entity.Product
 	)
 
 	for {
@@ -58,10 +58,10 @@ func (usecase *Usecase) Sync() error {
 	return nil
 }
 
-func (usecase Usecase) Fetch(l, o int) ([]entity.Characteristic, error) {
+func (usecase Usecase) Fetch(l, o int) ([]entity.Product, error) {
 
 	var (
-		responseData entity.ResponseData[entity.Characteristic]
+		responseData entity.ResponseData[entity.Product]
 	)
 
 	request := usecase.http.R().SetQueryParams(map[string]string{
@@ -69,7 +69,7 @@ func (usecase Usecase) Fetch(l, o int) ([]entity.Characteristic, error) {
 		"offset": strconv.Itoa(o),
 	})
 
-	if response, err = request.Get("characteristics/"); err != nil {
+	if response, err = request.Get("products/"); err != nil {
 		return nil, err
 	}
 
@@ -80,12 +80,12 @@ func (usecase Usecase) Fetch(l, o int) ([]entity.Characteristic, error) {
 	return responseData.Results, nil
 }
 
-func (usecase Usecase) Find(id int) (*entity.Characteristic, error) {
+func (usecase Usecase) Find(id int) (*entity.Product, error) {
 
 	return usecase.repository.Find(id)
 }
 
-func (usecase Usecase) Save(entries []entity.Characteristic) error {
+func (usecase Usecase) Save(entries []entity.Product) error {
 
 	return usecase.repository.Save(entries)
 }

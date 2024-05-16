@@ -40,7 +40,11 @@ func (usecase *Usecase) Sync() error {
 	)
 
 	for {
-		if entries, err = usecase.Fetch(l, o); err != nil || len(entries) == 0 {
+		if entries, err = usecase.Fetch(l, o); err != nil {
+			return err
+		}
+
+		if len(entries) == 0 {
 			break
 		}
 
@@ -49,7 +53,6 @@ func (usecase *Usecase) Sync() error {
 		}
 
 		o += l
-
 	}
 
 	return nil
@@ -67,7 +70,6 @@ func (usecase Usecase) Fetch(l, o int) ([]entity.Brand, error) {
 	})
 
 	if response, err = request.Get("brands/"); err != nil {
-
 		return nil, err
 	}
 

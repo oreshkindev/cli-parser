@@ -5,6 +5,7 @@ import (
 	"cli-parser/internal/brand"
 	"cli-parser/internal/characteristic"
 	"cli-parser/internal/characteristic_extended"
+	"cli-parser/internal/product"
 	"context"
 	"os"
 
@@ -16,6 +17,7 @@ type (
 		Brand                  brand.Manager
 		Characteristic         characteristic.Manager
 		CharacteristicExtended characteristic_extended.Manager
+		Product                product.Manager
 	}
 )
 
@@ -33,5 +35,6 @@ func New(context context.Context, connection *database.Database) *Manager {
 		Brand:                  *brand.New(context, connection, http),
 		Characteristic:         *characteristic.New(context, connection, http),
 		CharacteristicExtended: *characteristic_extended.New(context, connection, http),
+		Product:                *product.New(context, connection, http),
 	}
 }
