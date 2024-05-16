@@ -37,5 +37,15 @@ func run(context context.Context) error {
 		return err
 	}
 
+	// синхронизируем характеристики
+	if err = manager.Characteristic.Sync(); err != nil {
+		return err
+	}
+
+	// синхронизируем расширенные характеристики
+	if err = manager.CharacteristicExtended.Sync(); err != nil {
+		return err
+	}
+
 	return nil
 }
