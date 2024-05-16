@@ -9,9 +9,10 @@ type (
 	}
 
 	CharacteristicExtended struct {
-		ID             int    `json:"characteristic"`
-		Name           string `json:"value"`
-		NameTranslated string `json:"name_translated"`
+		ID               int    `json:"id"`
+		CharacteristicID int    `json:"characteristic"`
+		Name             string `json:"value"`
+		NameTranslated   string `json:"name_translated"`
 	}
 
 	Usecase interface {

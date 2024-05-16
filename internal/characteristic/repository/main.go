@@ -33,7 +33,7 @@ func (repository Repository) Find(id int) (*entity.Characteristic, error) {
 		entry entity.Characteristic
 	)
 
-	if err = repository.connection.QueryRow(repository.context, "SELECT name FROM characteristics WHERE id = $1", id).Scan(&entry.ID, &entry.Name); err != nil {
+	if err = repository.connection.QueryRow(repository.context, "SELECT id, name FROM characteristics WHERE id = $1", id).Scan(&entry.ID, &entry.Name); err != nil {
 		return nil, common.Error(err)
 	}
 

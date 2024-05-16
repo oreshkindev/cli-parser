@@ -33,7 +33,7 @@ func (repository Repository) Find(id int) (*entity.CharacteristicExtended, error
 		entry entity.CharacteristicExtended
 	)
 
-	if err = repository.connection.QueryRow(repository.context, "SELECT name FROM characteristics_extended WHERE id = $1", id).Scan(&entry.ID, &entry.Name); err != nil {
+	if err = repository.connection.QueryRow(repository.context, "SELECT id, characteristics_id, name FROM characteristics_extended WHERE id = $1", id).Scan(&entry.ID, &entry.CharacteristicID, &entry.Name); err != nil {
 		return nil, common.Error(err)
 	}
 
@@ -47,7 +47,7 @@ func (repository Repository) Save(entries []entity.CharacteristicExtended) error
 	)
 
 	for _, entry := range entries {
-		batch.Queue("INSERT INTO characteristics_extended (id, name) VALUES ($1, $2) ON CONFLICT DO NOTHING", entry.ID, entry.Name)
+		batch.Queue("INSERT INTO characteristics_extended (id, characteristics_id, name) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING", entry.ID, entry.CharacteristicID, entry.Name)
 	}
 
 	results := repository.connection.SendBatch(repository.context, &batch)
