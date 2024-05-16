@@ -1,0 +1,12 @@
+# Executed scripts
+*.sh
+
+# Bin
+bin
+
+# Logs
+logs
+*.log
+
+# Editor directories and files
+.vscode/*
