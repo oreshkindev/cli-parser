@@ -6,6 +6,7 @@ import (
 	"context"
 	"log"
 	"os"
+	"time"
 )
 
 var (
@@ -32,6 +33,22 @@ func run(context context.Context) error {
 	// инициализируем менеджер
 	manager := internal.New(context, connection)
 
+	// синхронизируем данные каждые 10 минут
+	ticker := time.NewTicker(10 * time.Minute)
+
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ticker.C:
+			if err = sync(manager); err != nil {
+				return err
+			}
+		}
+	}
+}
+
+func sync(manager *internal.Manager) error {
 	// синхронизируем бренды
 	if err = manager.Brand.Sync(); err != nil {
 		return err
